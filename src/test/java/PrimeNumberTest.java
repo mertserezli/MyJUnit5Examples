@@ -1,8 +1,8 @@
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofSeconds;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PrimeNumberTest {
 
@@ -51,6 +51,21 @@ public class PrimeNumberTest {
     @Test
     void evenNotIsPrimeTest() {
         assertFalse(PrimeNumber.isPrime(16));
+    }
+
+    @Test
+    void timeoutNotExceeded() {
+        assertTimeout(ofSeconds(2), () -> {
+            PrimeNumber.isPrime(1001);
+        });
+    }
+
+    @Test
+    void timeoutExceeded() {
+        assertTimeout(ofMillis(1), () -> {
+            PrimeNumber.isPrime(100_000_001);
+            Thread.sleep(100);
+        });
     }
 
     @Test
