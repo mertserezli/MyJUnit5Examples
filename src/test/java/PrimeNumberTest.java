@@ -60,6 +60,13 @@ public class PrimeNumberTest {
         });
     }
 
+    @RepeatedTest(value = 5, name = "{displayName} {currentRepetition}/{totalRepetitions}")
+    @DisplayName("Repeat!")
+    void customDisplayName() {
+        Assertions.assertTrue(true);
+        System.out.println("I will repeat 5 times");
+    }
+    
     @Test
     void timeoutExceeded() {
         assertTimeout(ofMillis(1), () -> {
